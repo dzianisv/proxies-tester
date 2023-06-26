@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "concurrent-queue": "^7.0.2"
+  }
+}
