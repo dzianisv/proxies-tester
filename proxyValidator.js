@@ -7,10 +7,10 @@ async function validate(proxy, timeout) {
     try {
         const speed = await throughput.testThrougput(proxy, timeout);
         if (speed > throughputThreshold) {
-            console.log(__filename, 'found a good proxy', JSON.stringify(proxy.protocols), proxy.ip, proxy.port, 'througput (Bps)', speed);
+            console.log(__filename, 'found a good proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
             return {...proxy, throughput: speed};
         } else {
-            console.log(__filename, 'bad proxy', JSON.stringify(proxy.protocols), proxy.ip, proxy.port, 'througput (Bps)', speed);
+            console.log(__filename, 'bad proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
             return null;
         }
     } catch(err) {
@@ -44,12 +44,14 @@ async function validateList(proxyList, concurrency = 100, onValidProxy = (proxy)
 
     return new Promise((resolve, reject) => {
         queue.drained(() => {
+            console.log(__filename, 'tasks queue drained');
             resolve(validated);
         });
 
         if (queue.size == 0) {
             resolve(validated);
         }
+
     });
 }
 
