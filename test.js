@@ -1,4 +1,4 @@
-const tester = require('./curlTester');
+const tester = require('./stdlibTester');
 
 
 (async () => {

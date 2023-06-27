@@ -53,3 +53,13 @@ ssh -D 1080 -C -q -N $SSH_HOST
 ```
 
 For the HTTP and HTTP CONNECT proxies I have used [switchproxy](https://github.com/dzianisv/switchproxy)
+
+## Convertation
+`{ip, port, protocol}` to `protocol://ip:port`
+
+```bash
+jq -j -r '.protocol, "://", .ip, ":", .port, "\n"' < validated.json
+```
+
+## Notes
+1. It is better to use HTTPS endpoint to test HTTP proxies for HTTP CONNECT support.

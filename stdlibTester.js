@@ -6,10 +6,16 @@ const http = require('./http');
 const tls = require('tls');
 const url = require('url');
 
+const useHttpConnectProxy = true;
+
 async function tcpConnect(host, port, proxy) {
     console.log(__filename, 'connecting to the proxy', proxy);
     if (proxy.protocol == 'http') {
-        return await httpProxy.connect(host, port, proxy)
+        if (useHttpConnectProxy) {
+            return await httpConnectProxy.connect(host, port, proxy);
+        } else {
+            return await httpProxy.connect(host, port, proxy)
+        }
     } else if (proxy.protocol === 'socks4' || proxy.protocol === 'socks5') {
         return await socksProxy.connect(host, port, proxy);
     } else {
@@ -63,7 +69,7 @@ async function GET(targetUrl, proxy) {
     return new Promise((resolve, reject) => {
         stream.on(event, () => {
             console.log(__filename, 'GET', targetUrl, proxy, 'connected');
-            stream.write(`GET ${proxy.protocol == 'http' ? targetUrl : parsedUrl.pathname} HTTP/1.1\r\nHost: ${parsedUrl.hostname}\r\nUser-Agent: curl/7.87.0\r\nAccept: */*\r\n\r\n`);
+            stream.write(`GET ${(proxy.protocol == 'http' && !useHttpConnectProxy) ? targetUrl : parsedUrl.pathname} HTTP/1.1\r\nHost: ${parsedUrl.hostname}\r\nUser-Agent: curl/7.87.0\r\nAccept: */*\r\n\r\n`);
             resolve(stream);
         });
     });
