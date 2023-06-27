@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-function testProxy(proxy, url = 'https://link.testfile.org/500MB', timeout = 5000) {
+function testProxy(proxy, timeout = 5000, url = 'https://link.testfile.org/500MB') {
   return new Promise((resolve, reject) => {
     const start = Date.now();
 

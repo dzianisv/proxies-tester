@@ -1,12 +1,13 @@
 
 const cq = require('concurrent-queue');
-const nodeTester = require('./stdlibTester');
+const stdlibTester = require('./stdlibTester');
 const curlTester = require('./curlTester');
 const throughputThreshold = 1000;
 
 async function validate(proxy, timeout) {
+    const tester = curlTester;
     try {
-        const speed = await nodeTester.testProxy(proxy, timeout);
+        const speed = await tester.testProxy(proxy, timeout);
         if (speed > throughputThreshold) {
             console.log(__filename, 'found a good proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
             return {...proxy, throughput: speed};

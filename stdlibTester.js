@@ -69,7 +69,7 @@ async function GET(targetUrl, proxy) {
     });
 }
 
-async function testProxy(proxy, testUrl = 'http://ipv4.download.thinkbroadband.com/10MB.zip', timeout = 3000) {
+async function testProxy(proxy, timeout = 5000, testUrl = 'http://ipv4.download.thinkbroadband.com/10MB.zip') {
     const start = Date.now();
     console.log(__filename, 'GET', testUrl);
     const stream = await GET(testUrl, proxy);
