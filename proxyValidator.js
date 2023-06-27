@@ -5,7 +5,7 @@ const curlTester = require('./curlTester');
 const throughputThreshold = 1000;
 
 async function validate(proxy, timeout) {
-    const tester = stdlibTester;
+    const tester = curlTester;
     try {
         const speed = await tester.testProxy(proxy, timeout);
         if (speed > throughputThreshold) {
