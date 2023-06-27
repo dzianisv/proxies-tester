@@ -40,9 +40,11 @@ function readProxyListFromFile(filePath) {
     console.log('Usage: ', process.argv[0], process.argv[1], 'proxies.txt');
     return;
   }
+  const validatedProxies = [];
   const proxies = readProxyListFromFile(process.argv[2]);
   await proxyValidator.validateList(proxies, 100, (proxy) => {
-    fs.appendFileSync('validated.json', JSON.stringify(proxy) + '\n', 'utf-8');
+    validatedProxies.push(proxy);
+    fs.appendFileSync('validated.txt', `${proxy.protocol}//${proxy.ip}:${proxy.port}\n`, 'utf-8');
   });
 })();
 
