@@ -69,7 +69,7 @@ async function GET(targetUrl, proxy) {
     });
 }
 
-async function testThrougput(proxy, timeout = 3000, testUrl = 'http://ipv4.download.thinkbroadband.com/10MB.zip') {
+async function testProxy(proxy, testUrl = 'http://ipv4.download.thinkbroadband.com/10MB.zip', timeout = 3000) {
     const start = Date.now();
     console.log(__filename, 'GET', testUrl);
     const stream = await GET(testUrl, proxy);
@@ -123,5 +123,5 @@ async function testThrougput(proxy, timeout = 3000, testUrl = 'http://ipv4.downl
 }
 
 module.exports = {
-    testThrougput
+    testProxy
 };
