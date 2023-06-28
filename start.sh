@@ -16,7 +16,7 @@ fi
 
 if [  -f proxies.txt ]; then
     echo 'Getting proxies list: proxies.txt'
-    node_modules/.bin/proxy-lists getProxies
+    ./node_modules/.bin/proxy-lists getProxies
 fi
 
 echo 'Validating proxies, validated proxies will be stored at validated.txt'
