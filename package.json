@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "concurrent-queue": "^7.0.2"
+    "concurrent-queue": "^7.0.2",
+    "proxy-lists": "^1.23.3"
   }
 }
