@@ -14,7 +14,7 @@ if [ ! -d node_modules ]; then
     npm install
 fi
 
-if [  -f proxies.txt ]; then
+if [  ! -f proxies.txt ]; then
     echo 'Getting proxies list: proxies.txt'
     ./node_modules/.bin/proxy-lists getProxies
 fi
