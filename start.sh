@@ -1,13 +1,12 @@
 #!/bin/sh
-
 set -eu
 
-if ! command -v node > /dev/null; then
-    brew install -y node
-fi
-
-if ! command -v npm > /dev/null; then
-    brew install -y npm
+if ! command -v npm > /dev/null || ! command -v node > /dev/null; then
+    if command -v brew; then
+        brew install -y node npm
+    else
+        sudo apt install -y node npm
+    fi
 fi
 
 if [ ! -d node_modules ]; then
