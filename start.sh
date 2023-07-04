@@ -5,7 +5,7 @@ if ! command -v npm > /dev/null || ! command -v node > /dev/null; then
     if command -v brew; then
         brew install -y node npm
     else
-        sudo apt install -y node npm
+        sudo apt install -y nodejs npm
     fi
 fi
 

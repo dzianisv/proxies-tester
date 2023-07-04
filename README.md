@@ -67,5 +67,7 @@ jq -j -r '.protocol, "://", .ip, ":", .port, "\n"' < validated.json
 
 ## Installation to OrangePi
 ```bash
-rsync --progress -rtl --exclude=node_modules *  root@orangepi4-lts:~/proxy-validator/
+HOST=user@orangepi4-lts
+rsync --progress -rtl --exclude=node_modules * $HOST:~/.local/lib/proxy-validator/
+ssh $HOST sh -c 'cd ~/.local/bin/proxy-validator; ./install-service.sh'
 ```
