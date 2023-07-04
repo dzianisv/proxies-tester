@@ -41,8 +41,10 @@ function readProxyListFromFile(filePath) {
     return;
   }
   const validatedProxies = [];
+  const concurrency = process.env.TEST_CONCURRENCY ? parseInt(process.env.TEST_CONCURRENCY) : 100;
+
   const proxies = readProxyListFromFile(process.argv[2]);
-  await proxyValidator.validateList(proxies, 100, (proxy) => {
+  await proxyValidator.validateList(proxies, concurrency, (proxy) => {
     validatedProxies.push(proxy);
     fs.appendFileSync('validated.txt', `${proxy.protocol}://${proxy.ip}:${proxy.port} ${proxy.throughput}\n`, 'utf-8');
   });

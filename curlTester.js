@@ -18,7 +18,7 @@ function testProxy(proxy, timeout = 5000, url = 'https://link.testfile.org/500MB
 
     proc.on('close', (code) => {
       if ((code != 28 && code != 0) || dataReceived == 0) {
-        console.log(__filename, proxy.protocol, proxy.ip, proxy.port, 'curl exited with code', code);
+        // console.log(__filename, proxy.protocol, proxy.ip, proxy.port, 'curl exited with code', code);
         reject(stderr);
         return;
       }
