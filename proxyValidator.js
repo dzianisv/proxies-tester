@@ -2,6 +2,7 @@
 const cq = require('concurrent-queue');
 const stdlibTester = require('./stdlibTester');
 const curlTester = require('./curlTester');
+const browserTester = require("./browserTester");
 const throughputThreshold = 1000;
 
 async function validate(proxy, timeout) {
@@ -10,15 +11,16 @@ async function validate(proxy, timeout) {
         const speed = await tester.testProxy(proxy, timeout);
         if (speed > throughputThreshold) {
             console.log(__filename, 'found a good proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
-            return {...proxy, throughput: speed};
-        } else {
-            console.log(__filename, 'bad proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
-            return null;
+            if (await browserTester.testProxy(proxy, 30000, process.env.TEST_URL, process.env.TEST_SELECTOR)) {
+                return { ...proxy, throughput: speed };
+            }
         }
-    } catch(err) {
+    } catch (err) {
         console.log(__filename, proxy, err);
-        return null;
     }
+
+    console.log(__filename, 'bad proxy', proxy.protocol, proxy.ip, proxy.port, 'througput (Bps)', speed);
+    return null;
 }
 
 async function validateList(proxyList, concurrency = 100, onValidProxy = (proxy) => { }) {
@@ -32,7 +34,7 @@ async function validateList(proxyList, concurrency = 100, onValidProxy = (proxy)
     for (let proxy of proxyList) {
         for (let protocol of proxy.protocols) {
             let testProxy = { ip: proxy.ip, port: proxy.port, protocol };
-            console.log(__filename, 'validate', JSON.stringify(testProxy));``
+            console.log(__filename, 'validate', JSON.stringify(testProxy)); ``
             queue(testProxy, (err, ret) => {
                 if (ret) {
                     validated.push(ret);

@@ -21,5 +21,9 @@ if [  ! -f ${PROXIES_FILE} ]; then
     ./node_modules/.bin/proxy-lists getProxies
 fi
 
+if [ -f .env ]; then
+    export $(< .env)
+fi
+
 echo 'Validating proxies, validated proxies will be stored at validated.txt'
 node index.js "${PROXIES_FILE}"

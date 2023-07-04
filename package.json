@@ -1,6 +1,9 @@
 {
   "dependencies": {
     "concurrent-queue": "^7.0.2",
-    "proxy-lists": "^1.23.3"
+    "proxy-lists": "^1.23.3",
+    "puppeteer": "^20.7.4",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
