@@ -35,5 +35,4 @@ sudo loginctl enable-linger $(whoami)
 systemctl --user daemon-reload
 
 # Enable and start the new service
-systemctl --user enable http_python
-systemctl --user start http_python
+systemctl --user enable --now http_python

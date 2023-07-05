@@ -64,10 +64,3 @@ jq -j -r '.protocol, "://", .ip, ":", .port, "\n"' < validated.json
 ## Notes
 1. It is better to use HTTPS endpoint to test HTTP proxies for HTTP CONNECT support.
 
-
-## Installation to OrangePi
-```bash
-HOST=user@orangepi4-lts
-rsync --progress -rtl --exclude=node_modules * $HOST:~/.local/lib/proxy-validator/
-ssh $HOST sh -c 'cd ~/.local/bin/proxy-validator; ./install-service.sh'
-```

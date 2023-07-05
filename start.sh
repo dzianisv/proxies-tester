@@ -26,3 +26,5 @@ fi
 
 echo 'Validating proxies, validated proxies will be stored at validated.txt'
 node index.js "${PROXIES_FILE}"
+# use validated proxies next time
+cp proxies-new.txt proxies.txt

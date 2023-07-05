@@ -46,7 +46,8 @@ function readProxyListFromFile(filePath) {
   const proxies = readProxyListFromFile(process.argv[2]);
   await proxyValidator.validateList(proxies, concurrency, (proxy) => {
     validatedProxies.push(proxy);
-    fs.appendFileSync('validated.txt', `${proxy.protocol}://${proxy.ip}:${proxy.port} ${proxy.throughput}\n`, 'utf-8');
+    fs.appendFileSync('proxies-formated.txt', `${proxy.protocol}://${proxy.ip}:${proxy.port} ${proxy.throughput}\n`, 'utf-8');
+    fs.appendFileSync('proxies-new.txt', `${proxy.ip}:${proxy.port}\n`, 'utf-8');
   });
 })();
 

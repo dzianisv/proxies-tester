@@ -7,7 +7,7 @@ DIR="${HOME}/.local/lib/proxy-validator"
 mkdir -p ~/.config/systemd/user
 
 # Define service
-cat << EOF > ~/.config/systemd/user/http_python.service
+cat << EOF > ~/.config/systemd/user/proxy-validator.service
 [Unit]
 Description=HTTP Python
 
@@ -17,9 +17,9 @@ WorkingDirectory=${DIR}
 EOF
 
 # Define timer
-cat << EOF > ~/.config/systemd/user/http_python.timer
+cat << EOF > ~/.config/systemd/user/proxy-validator.timer
 [Unit]
-Description=Run http_python every 12 hours
+Description=Run proxy-validator every 12 hours
 
 [Timer]
 OnCalendar=*-*-* 0/12:00:00
@@ -36,5 +36,4 @@ sudo loginctl enable-linger $(whoami)
 systemctl --user daemon-reload
 
 # Enable and start the new timer
-systemctl --user enable http_python.timer
-systemctl --user start http_python.timer
+systemctl --user enable --now proxy-validator.timer
