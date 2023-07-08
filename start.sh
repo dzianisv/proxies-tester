@@ -24,6 +24,10 @@ if [ -f .env ]; then
     export $(< .env)
 fi
 
+if [ -f proxies-formated.txt ]; then
+    mv proxies-formated.txt proxies-formated-$(stat -f %m ./proxies-formated.txt).txt
+fi
+
 echo 'Validating proxies, validated proxies will be stored at validated.txt'
 node index.js "${PROXIES_FILE}"
 # use validated proxies next time
