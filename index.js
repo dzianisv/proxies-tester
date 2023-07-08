@@ -40,12 +40,15 @@ function readProxyListFromFile(filePath) {
     console.log('Usage: ', process.argv[0], process.argv[1], 'proxies.txt');
     return;
   }
-  const validatedProxies = [];
+  const validatedProxies = {};
   const concurrency = process.env.TEST_CONCURRENCY ? parseInt(process.env.TEST_CONCURRENCY) : 100;
 
   const proxies = readProxyListFromFile(process.argv[2]);
   await proxyValidator.validateList(proxies, concurrency, (proxy) => {
-    validatedProxies.push(proxy);
+    if (validatedProxies.hasOwnProperty(proxy.ip)) {
+      return;
+    }
+    validatedProxies[proxy.ip] == proxy;
     fs.appendFileSync('proxies-formated.txt', `${proxy.protocol}://${proxy.ip}:${proxy.port} ${proxy.throughput}\n`, 'utf-8');
     fs.appendFileSync('proxies-new.txt', `${proxy.ip}:${proxy.port}\n`, 'utf-8');
   });

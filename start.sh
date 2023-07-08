@@ -25,10 +25,11 @@ if [ -f .env ]; then
 fi
 
 if [ -f proxies-formated.txt ]; then
+    echo 'Backing up proxies-formated.txt'
     mv proxies-formated.txt proxies-formated-$(stat -f %m ./proxies-formated.txt).txt
 fi
 
-echo 'Validating proxies, validated proxies will be stored at validated.txt'
+echo 'Validating proxies...'
 node index.js "${PROXIES_FILE}"
 # use validated proxies next time
 cp proxies-new.txt proxies.txt
