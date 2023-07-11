@@ -52,7 +52,6 @@ function readProxyListFromFile(filePath) {
 
     validatedProxies[proxy.ip] == proxy;
     fs.appendFileSync('proxies-formated.txt', `${proxy.protocol}://${proxy.ip}:${proxy.port} ${proxy.throughput}\n`, 'utf-8');
-    fs.appendFileSync('proxies-new.txt', `${proxy.ip}:${proxy.port}\n`, 'utf-8');
   });
 })();
 
