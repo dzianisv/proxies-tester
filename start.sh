@@ -43,4 +43,5 @@ node index.js "${PROXIES_FILE}"
 # -t' ' sets the field delimiter to a space.
 sort -nr -k2 -t' ' proxies-formated.txt -o proxies-formated.txt
 # use validated proxies next time
+cp proxies.txt proxies.txt.$($STAT proxies.txt)
 awk '{print $1}' proxies-formated.txt | cut -d '/' -f 3 | uniq - proxies.txt
