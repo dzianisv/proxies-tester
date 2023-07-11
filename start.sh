@@ -37,5 +37,12 @@ fi
 
 echo 'Validating proxies...'
 node index.js "${PROXIES_FILE}"
+# This command uses the sort utility with the following options:
+# -n performs a numeric sort.
+# -k2 specifies the field to sort by. In this case, it's the second field (server speed).
+# -t' ' sets the field delimiter to a space.
+sort -nr -k2 -t' ' proxies-formated.txt -o proxies-formated.txt
 # use validated proxies next time
 cp proxies-new.txt proxies.txt
+
+
