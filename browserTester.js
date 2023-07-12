@@ -8,7 +8,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 // <div class="captcha__human__title" tabindex="0">We want to make sure it is actually you we are dealing with and not a robot.</div>
 async function isGeoCaptchaDeliveryThere(page, timeout) {
     await page.waitForSelector('iframe[src^="https://geo.captcha-delivery.com"]', {timeout});
-    return null;
+    return true;
     // TODO: I didn't figure out how to get element from inside the frame
     // const frame = await frameHandle.contentFrame();
     // console.log(__filename, "found geo.captcha-delivery.com iframe");
@@ -45,7 +45,7 @@ async function waitForReadyPage(page, selector, timeout) {
 async function testProxy(proxy, timeout = 30000, test_url = "", selector = "") {
     console.log(__filename, "testing", proxy);
     puppeteer.use(StealthPlugin());
-    const browser = await puppeteer.launch({ /* headless: true ,*/ args: [`--proxy-server=${proxy.protocol}://${proxy.ip}:${proxy.port}`] });
+    const browser = await puppeteer.launch({ headless: "new", args: [`--proxy-server=${proxy.protocol}://${proxy.ip}:${proxy.port}`] });
     const page = await browser.newPage();
 
     // page load timeout
